@@ -1,0 +1,51 @@
+﻿@model Practical7.Models.Feedback
+
+@{
+    ViewBag.Title = "Feedback Details";
+    Layout = "~/Views/Shared/_FeedbackS1Page1.cshtml";
+    int stars = Math.Max(0, Math.Min(5, Model.Rating));
+    string initial = Model.StudentName.Trim().Substring(0, 1).ToUpper();
+}
+
+<div class="success">
+    <span class="tick">&#10003;</span>
+    Thank you! Your feedback has been submitted.
+</div>
+
+<h2>Feedback Summary</h2>
+<p class="sub">Here is what you submitted.</p>
+
+<div class="person">
+    <div class="avatar">@initial</div>
+    <div>
+        <h3>@Model.StudentName</h3>
+        <span>@Model.StudentEmail</span>
+    </div>
+</div>
+
+<div class="info-grid">
+    <div class="info-box">
+        <div class="k">Course</div>
+        <div class="v">@Model.Course</div>
+    </div>
+
+    <div class="info-box">
+        <div class="k">Rating</div>
+        <div class="v stars-static">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <span class="@(i <= stars ? "on" : "")">&#9733;</span>
+            }
+            <small>@Model.Rating / 5</small>
+        </div>
+    </div>
+
+    <div class="info-box full">
+        <div class="k">Comment</div>
+        <div class="v comment">@Model.Comment</div>
+    </div>
+</div>
+
+<div class="actions">
+    @Html.ActionLink("Submit Another Response", "Index", "Feedbacks", null, new { @class = "btn btn-outline" })
+</div>
